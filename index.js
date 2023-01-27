@@ -1,7 +1,8 @@
+require('dotenv').config()
 const express = require('express')
-const mongoose = require('mongoose')
 const cors = require('cors');
-const Employee = require('./models/employee')
+const Employee = require('./models/employee');
+const { connectMongo } = require('./models/connection')
 
 const app = express()
 
@@ -12,8 +13,8 @@ app.use(cors()) // allow access from jquey on client side
 
 
 // Connect to mongoDB
-const dbUri = "mongodb://172.17.0.2:27017/employees"
-mongoose.connect(dbUri).then(() => { console.log('Database connected'); })
+const dbUri = process.env.MONGO_URI
+connectMongo(dbUri)
 
 // Home page
 app.get('/', async (req, res) => {

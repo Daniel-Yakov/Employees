@@ -1,0 +1,18 @@
+version: '3.0'
+
+services:
+  nginx: 
+    image: nginx:alpine-slim
+    ports:
+      - 80:80
+    volumes:
+      - "./nginx/nginx.conf:/etc/nginx/conf.d/default.conf"
+      - "./static:/usr/share/nginx/html"
+
+  app:
+    build: ./
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/employees
+
+  mongodb:
+    image: mongo:6.0.4

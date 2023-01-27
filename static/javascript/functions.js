@@ -1,6 +1,9 @@
+const host = "localhost"
+const port = "80"
+
 // Show all employees
 function loadPage(){
-    $.get("http://localhost:3000/employees",function(employees){
+    $.get(`http://${host}:${port}/employees`,function(employees){
         for(let employee of employees){
             $("#main").append(
                 `<div id=${employee._id} class="card mx-auto mb-2 col-md-4" style="width: 18rem;" data-editable> 

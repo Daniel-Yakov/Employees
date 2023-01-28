@@ -22,7 +22,7 @@ $("#main").on("click", "button", function(){
             // send the put request and update record
             $.ajax({
                 type: "Put",
-                url: `http://${host}:${port}/employees/${id}`,
+                url: `http://${host}/employees/${id}`,
                 data: JSON.stringify(jsonData),
                 contentType: "application/json",
                 success: function(data){
@@ -40,7 +40,7 @@ $("#main").on("click", "button", function(){
         // send the put request and update record
         $.ajax({
             type: "delete",
-            url: `http://${host}:${port}/employees/${id}`,
+            url: `http://${host}/employees/${id}`,
             contentType: "application/json",
             success: function(data){
                 console.log("success", data);
@@ -72,7 +72,7 @@ $("#add").on("click", function(){
         // send the put request and add record
         $.ajax({
             type: "Post",
-            url: `http://${host}:${port}/employees`,
+            url: `http://${host}/employees`,
             data: JSON.stringify(jsonData),
             contentType: "application/json",
             success: function(data){

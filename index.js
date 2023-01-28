@@ -16,9 +16,11 @@ app.use(cors()) // allow access from jquey on client side
 const dbUri = process.env.MONGO_URI
 connectMongo(dbUri)
 
-// Home page
-app.get('/', async (req, res) => {
-    res.send('home')
+// Health check
+app.get('/employees/health', async (req, res) => {
+    res.json({
+        status: "OK"
+    })
 })
 
 // Render all employees
@@ -36,7 +38,7 @@ app.post('/employees', async (req, res) => {
     res.json(employeeSaved)
 })
 
-// Render specific employee
+// Get specific employee
 app.get('/employees/:id', async (req, res) => {
     try {
         const employees = await Employee.findById(req.params.id)

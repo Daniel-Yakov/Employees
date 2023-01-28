@@ -1,0 +1,3 @@
+{ "name": "daniel", "age": "22", "position": "junior", "salary": "4367" }
+{ "name": "daniel-changed", "age": "22", "position": "junior", "salary": "14000" }
+{ "status": "OK" }

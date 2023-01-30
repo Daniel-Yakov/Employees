@@ -5,7 +5,7 @@ function loadPage(){
     $.get(`http://${host}/employees`,function(employees){
         for(let employee of employees){
             $("#main").append(
-                `<div id=${employee._id} class="card mx-auto mb-2 col-md-4" style="width: 18rem;" data-editable> 
+                `<div id=${employee._id} class="card mx-auto mb-2 col-md-4" style="width: 18rem;"> 
                     <div class="card-body"> 
                     <h4 class="card-title" id="name-${employee._id}">${employee.name}</h4> 
                     <h6 class="card-title" id="position-${employee._id}">${employee.position ? employee.position : 'No position'}</h6> 
@@ -32,7 +32,7 @@ function editForm(id) {
     const position = $(`#position-${id}`).text()
 
     $(`#${id}`).replaceWith(
-        `<div class="card mx-auto mb-2 col-md-4" style="width: 18rem;" data-editable> 
+        `<div class="card mx-auto mb-2 col-md-4" style="width: 18rem;"> 
             <div class="card-body"> 
                 <form method="post">
                     <div class="mb-3">

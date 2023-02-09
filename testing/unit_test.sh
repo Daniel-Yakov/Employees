@@ -1,9 +1,10 @@
 #!/bin/bash
 
+
 ##################################################################################
 # Health check
 
-test=$(curl http://localhost/employees/health)
+test=$(curl http://test:3000/employees/health)
 
 res=$(cat testing/ans.txt | head -n 3 | tail -1) 
 

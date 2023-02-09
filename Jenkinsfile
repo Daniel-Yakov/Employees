@@ -25,8 +25,7 @@ pipeline {
         stage('unit_test'){
             steps{
                 sh """
-                    docker run -d --name test -p 80:3000 employee
-                    sleep 3
+                    docker run -d --name test employee
                     bash testing/unit_test.sh
                 """
             }

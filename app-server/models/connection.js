@@ -7,9 +7,7 @@ module.exports.connectMongo = async function (dbUri){
             console.log("monogDB connected");
             break
         } catch {
-            setTimeout(() => {
-                console.log('Error connecting to MongoDB. Retrying in 1 second...');
-            }, 1000)
+            console.log('Error connecting to MongoDB. Retrying...');
         }
     }
 } 

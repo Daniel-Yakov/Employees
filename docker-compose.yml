@@ -2,7 +2,7 @@ version: '3.0'
 
 services:
   nginx: 
-    image: nginx:alpine-slim
+    image: nginx:1.23.3-alpine-slim
     ports:
       - 80:80
     volumes:

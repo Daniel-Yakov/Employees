@@ -16,9 +16,8 @@ pipeline {
         stage('build'){
             steps{
                 sh """
-                    pushd app-server
+                    cd app-server
                     docker build -t employee .
-                    popd
                 """
             }
         }

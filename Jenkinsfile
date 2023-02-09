@@ -25,7 +25,7 @@ pipeline {
         stage('unit_test'){
             steps{
                 sh """
-                    docker run -d --name test employee
+                    docker run -d --name test --network portfolio_default employee
                     bash testing/unit_test.sh
                 """
             }

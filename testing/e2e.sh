@@ -1,20 +1,6 @@
 #!/bin/bash
 
-host=$1
-
-##################################################################################
-# Health check
-
-test=$(curl http://${host}/employees/health)
-
-res=$(cat ans.txt | head -n 3 | tail -1) 
-
-if [[ $(echo "$test" | jq -c . ) != $(echo "$res" | jq -c . ) ]]; then
-   echo "Server is NOT healthly"
-   exit 1
-fi
-
-echo "Server is healthly"
+host="localhost"
 
 ##################################################################################
 # Adding employee

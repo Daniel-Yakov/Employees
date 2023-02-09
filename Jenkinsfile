@@ -21,5 +21,22 @@ pipeline {
                 """
             }
         }
+
+        stage('unit_test'){
+            steps{
+                sh """
+                    docker run -d --name test -p 80:3000 employee
+                    bash testing/unit_test.sh
+                """
+            }
+            post {
+                always {
+                    sh """
+                        docker stop test
+                        docker rm test
+                    """
+                }
+            }
+        }
     }
 }

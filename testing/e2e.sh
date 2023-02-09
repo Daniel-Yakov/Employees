@@ -1,6 +1,6 @@
 #!/bin/bash
 
-host="localhost"
+host="nginx"
 
 ##################################################################################
 # Adding employee
@@ -9,7 +9,7 @@ test=$(curl -X POST http://${host}/employees \
    -H 'Content-Type: application/json' \
    -d '{"name": "daniel", "age": "22", "position": "junior", "salary": "4367"}' | jq 'del(._id, .__v)')
 
-res=$(cat ans.txt | head -n 1) 
+res=$(cat testing/ans.txt | head -n 1) 
 
 if [[ $(echo "$test" | jq -c . ) != $(echo "$res" | jq -c . ) ]]; then
    echo "Adding an employee test failed"
@@ -53,7 +53,7 @@ test=$(curl -X PUT http://${host}/employees/${id} \
    -H 'Content-Type: application/json' \
    -d '{"name": "daniel-changed", "salary": "14000"}' | jq 'del(._id, .__v)')
 
-res=$(cat ans.txt | head -n 2 | tail -1) 
+res=$(cat testing/ans.txt | head -n 2 | tail -1) 
 
 if [[ $(echo "$test" | jq -c . ) != $(echo "$res" | jq -c . ) ]]; then
    echo "Update an employee test failed"
@@ -67,7 +67,7 @@ echo "Updated employee successfully"
 
 test=$(curl -X DELETE http://${host}/employees/${id})
 
-res=$(cat ans.txt | head -n 3 | tail -1) 
+res=$(cat testing/ans.txt | head -n 3 | tail -1) 
 
 if [[ $(echo "$test" | jq -c . ) != $(echo "$res" | jq -c . ) ]]; then
    echo "Delete employee test failed"

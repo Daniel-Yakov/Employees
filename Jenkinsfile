@@ -39,5 +39,22 @@ pipeline {
                 }
             }
         }
+
+        stage('e2e'){
+            steps{
+                sh """
+                    docker compose up -d 
+                    sleep 3
+                    bash testing/e2e.sh
+                """
+            }
+            post {
+                always {
+                    sh """
+                        docker compose down
+                    """
+                }
+            }
+        }
     }
 }

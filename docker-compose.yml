@@ -16,3 +16,8 @@ services:
 
   mongodb:
     image: mongo:6.0.4
+
+networks:
+  network1:
+    name: portfolio_default
+    external: true

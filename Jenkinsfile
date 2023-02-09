@@ -7,7 +7,7 @@ pipeline {
 
     stages {
         stage('checkout'){
-            steps{git 
+            steps{
                 deleteDir()
                 checkout scm
             }

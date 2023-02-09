@@ -26,6 +26,7 @@ pipeline {
             steps{
                 sh """
                     docker run -d --name test --network portfolio_default employee
+                    sleep 2
                     bash testing/unit_test.sh
                 """
             }

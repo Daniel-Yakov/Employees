@@ -5,7 +5,7 @@
 
 test=$(curl http://localhost/employees/health)
 
-res=$(cat ans.txt | head -n 3 | tail -1) 
+res=$(cat testing/ans.txt | head -n 3 | tail -1) 
 
 if [[ $(echo "$test" | jq -c . ) != $(echo "$res" | jq -c . ) ]]; then
    echo "Server is NOT healthly"

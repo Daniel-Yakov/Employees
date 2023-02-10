@@ -5,7 +5,7 @@ host=$1
 ##################################################################################
 # Adding employee
 
-test=$(curl -X POST http://${host}/employees \
+test=$(curl -X POST http://$host/employees \
    -H 'Content-Type: application/json' \
    -d '{"name": "daniel", "age": "22", "position": "junior", "salary": "4367"}' | jq 'del(._id, .__v)')
 
@@ -21,7 +21,7 @@ echo "Added employee successfully"
 ##################################################################################
 # Adding employee
 
-test=$(curl http://${host}/employees  | jq '.[0]')
+test=$(curl http://$host/employees  | jq '.[0]')
 
 id=$(echo $test | jq -r '._id') # to be used further during the testing
 
@@ -37,7 +37,7 @@ echo "List all employees successed"
 ##################################################################################
 # Get specific employee
 
-test=$(curl http://${host}/employees/${id} | jq 'del(._id, .__v)')
+test=$(curl http://$host/employees/${id} | jq 'del(._id, .__v)')
 
 if [[ $(echo "$test" | jq -c . ) != $(echo "$res" | jq -c . ) ]]; then
    echo "Get employee failed"
@@ -49,7 +49,7 @@ echo "Get employee successed"
 ##################################################################################
 # Update employee
 
-test=$(curl -X PUT http://${host}/employees/${id} \
+test=$(curl -X PUT http://$host/employees/${id} \
    -H 'Content-Type: application/json' \
    -d '{"name": "daniel-changed", "salary": "14000"}' | jq 'del(._id, .__v)')
 
@@ -65,7 +65,7 @@ echo "Updated employee successfully"
 ##################################################################################
 # delete employee
 
-test=$(curl -X DELETE http://${host}/employees/${id})
+test=$(curl -X DELETE http://$host/employees/${id})
 
 res=$(cat testing/ans.txt | head -n 3 | tail -1) 
 

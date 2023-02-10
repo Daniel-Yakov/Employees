@@ -31,7 +31,7 @@ pipeline {
             steps{
                 sh """
                     cd app-server
-                    docker build -t employee .
+                    docker build -t employees .
                 """
             }
         } 

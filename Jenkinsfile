@@ -88,7 +88,8 @@ pipeline {
                     fi
 
                     git checkout $GIT_BRANCH
-                    git push $NEXTVERSION
+                    git tag $NEXTVERSION
+                    git push origin $NEXTVERSION
                 """
             }
         }

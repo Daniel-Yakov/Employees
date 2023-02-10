@@ -1,3 +1,17 @@
+void setBuildStatus(String message, String context, String state) {
+    // use the token configured with the name 'github' to update the commit status in github ui
+    withCredentials([string(credentialsId: 'github', variable: 'TOKEN')]) {
+        // make the http request to the repository to update the commit status
+        sh """
+            curl \"https://api.github.com/repos/Daniel-Yakov/Employees/statuses/$GIT_COMMIT\" \
+                -H \"Authorization: token $TOKEN\" \
+                -H \"Content-Type: application/json\" \
+                -X POST \
+                -d \"{\\\"description\\\": \\\"$message\\\", \\\"state\\\": \\\"$state\\\", \\\"context\\\": \\\"$context\\\", \\\"target_url\\\": \\\"$BUILD_URL\\\"}\"
+        """
+    } 
+}
+
 pipeline {
     options {
         timestamps()
@@ -17,21 +31,21 @@ pipeline {
             steps{
                 sh """
                     cd app-server
-                    docker build -t employee .
+                    docker build -t employees .
                 """
             }
-        }
+        } 
 
         stage('unit_test'){
             steps{
                 sh """
-                    docker run -d --name test --network portfolio_default employee
+                    docker run -d --name test --network portfolio_default employees
                     sleep 2
                     bash testing/unit_test.sh
                 """
             }
             post {
-                always {
+                always { 
                     sh """
                         docker stop test
                         docker rm test
@@ -60,6 +74,58 @@ pipeline {
                     """
                 }
             }
+        }
+
+        stage('tag'){
+            when { branch "main" }
+
+            steps {
+                sh """                     
+                    NEXTVERSION=\$(git describe --tags | cut -d '-' -f1 | awk -F. -v OFS=. '{\$NF += 1 ; print}')
+                    
+                    if [ "\$NEXTVERSION" = "" ]; then
+                        NEXTVERSION="1.0.0"
+                    fi
+
+                    echo \$NEXTVERSION > v.txt
+                """
+            }
+        }
+
+        stage('publish'){
+            when { branch "main" }
+            
+            steps {
+                script {
+                    def VERSION = sh ( 
+                        script: 'cat v.txt',
+                        returnStdout: true 
+                    ).trim() 
+
+                    sh "docker tag employees:latest employees:${VERSION}"
+                    
+                    // push the image with the correct tag to ECR
+                    docker.withRegistry("https://644435390668.dkr.ecr.eu-west-3.amazonaws.com", "ecr:eu-west-3:publish-ecr") {
+                        docker.image("employees:${VERSION}").push()
+                    }
+
+                    sh """ 
+                        git checkout $GIT_BRANCH
+                        git tag $VERSION
+                        git push origin $VERSION
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            setBuildStatus("Build complete", "done", "success");
+        }
+
+        failure {
+            setBuildStatus("Build failed", "broke", "failure");
         }
     }
 }

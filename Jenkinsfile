@@ -77,6 +77,8 @@ pipeline {
         }
 
         stage('tag'){
+            when { branch "main" }
+
             steps {
                 sh """                     
                     NEXTVERSION=\$(git describe --tags | cut -d '-' -f1 | awk -F. -v OFS=. '{\$NF += 1 ; print}')
@@ -91,6 +93,8 @@ pipeline {
         }
 
         stage('publish'){
+            when { branch "main" }
+            
             steps {
                 script {
                     def VERSION = sh ( 

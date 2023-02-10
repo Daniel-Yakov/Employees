@@ -45,7 +45,7 @@ pipeline {
                 """
             }
             post {
-                always {
+                always { 
                     sh """
                         docker stop test
                         docker rm test

@@ -12,8 +12,6 @@ void setBuildStatus(String message, String context, String state) {
     } 
 }
 
-def NEXTVERSION = ""
-
 pipeline {
     options {
         timestamps()
@@ -87,10 +85,26 @@ pipeline {
                         NEXTVERSION="1.0.0"
                     fi
 
-                    git checkout $GIT_BRANCH 
-                    git tag \$NEXTVERSION
-                    git push origin \$NEXTVERSION
+                    echo \$NEXTVERSION > v.txt
                 """
+            }
+        }
+
+        stage('publish'){
+            steps {
+                script {
+                    def VERSION = sh (
+                        script: 'cat v.txt',
+                        returnStdout: true
+                    ).trim()
+
+                    sh "docker tag employees:latest employees:${VERSION}"
+                    
+                    // push the image with the correct tag to ECR
+                    docker.withRegistry("https://644435390668.dkr.ecr.eu-west-3.amazonaws.com", "ecr:eu-west-3:publish-ecr") {
+                        docker.image("employees:${VERSION}").push()
+                    }
+                }
             }
         }
     }

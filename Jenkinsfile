@@ -44,14 +44,18 @@ pipeline {
             steps{
                 sh """
                     docker compose up -d 
-                    sleep 3
-                    bash testing/e2e.sh
+                    sleep 2
+
+                    docker cp ./nginx/nginx.conf nginx:/etc/nginx/conf.d/default.conf
+                    docker exec -it employee_feature-nginx-1 nginx -s reload
+                    
+                    bash testing/e2e.sh nginx
                 """
             }
             post {
                 always {
                     sh """
-                        docker compose down
+                        docker compose down -v
                     """
                 }
             }

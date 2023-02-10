@@ -1,23 +1,22 @@
 version: '3.0'
 
 services:
-  nginx: 
+  nginx:
+    container_name: nginx 
     image: nginx:1.23.3-alpine-slim
-    ports:
-      - 80:80
-    volumes:
-      - "./nginx/nginx.conf:/etc/nginx/conf.d/default.conf"
-      - "./nginx/static:/usr/share/nginx/html"
 
   app:
+    container_name: app
     image: employee:latest
     environment:
       MONGO_URI: mongodb://mongodb:27017/employees
 
   mongodb:
+    container_name: mongodb
     image: mongo:6.0.4
 
 networks:
-  network1:
+  # same as jenkins' network 
+  default:
     name: portfolio_default
     external: true

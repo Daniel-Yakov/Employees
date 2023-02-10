@@ -20,7 +20,7 @@ pipeline {
                     docker build -t employee .
                 """
             }
-        }
+        } 
 
         stage('unit_test'){
             steps{

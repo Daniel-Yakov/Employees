@@ -87,6 +87,7 @@ pipeline {
                         NEXTVERSION="1.0.1"
                     fi
 
+                    git checkout $GIT_BRANCH
                     git push $NEXTVERSION
                 """
             }

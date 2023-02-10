@@ -104,6 +104,11 @@ pipeline {
                     docker.withRegistry("https://644435390668.dkr.ecr.eu-west-3.amazonaws.com", "ecr:eu-west-3:publish-ecr") {
                         docker.image("employees:${VERSION}").push()
                     }
+
+                    sh """ 
+                        git checkout $GIT_BRANCH
+                        git push origin $VERSION
+                    """
                 }
             }
         }

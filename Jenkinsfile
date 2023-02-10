@@ -107,6 +107,7 @@ pipeline {
 
                     sh """ 
                         git checkout $GIT_BRANCH
+                        git tag $VERSION
                         git push origin $VERSION
                     """
                 }

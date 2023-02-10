@@ -39,7 +39,7 @@ pipeline {
         stage('unit_test'){
             steps{
                 sh """
-                    docker run -d --name test --network portfolio_default employee
+                    docker run -d --name test --network portfolio_default employees
                     sleep 2
                     bash testing/unit_test.sh
                 """
@@ -106,7 +106,7 @@ pipeline {
                     }
 
                     sh """ 
-                        docker rmi employees:${VERSION}
+                        docker rmi employees:latest
 
                         git checkout $GIT_BRANCH
                         git tag $VERSION

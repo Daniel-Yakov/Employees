@@ -12,6 +12,8 @@ void setBuildStatus(String message, String context, String state) {
     } 
 }
 
+def NEXTVERSION = ""
+
 pipeline {
     options {
         timestamps()
@@ -73,6 +75,18 @@ pipeline {
                         docker compose down -v
                     """
                 }
+            }
+        }
+
+        stage('tag'){
+            steps {
+                sh """                     
+                    NEXTVERSION=\$(git describe --tags | cut -d '-' -f1 | awk -F. -v OFS=. '{\$NF += 1 ; print}')
+                    
+                    if [ "$NEXTVERSION" = "" ]; then
+                        NEXTVERSION="1.0.1"
+                    fi
+                """
             }
         }
     }

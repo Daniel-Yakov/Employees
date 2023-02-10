@@ -7,7 +7,7 @@ services:
 
   app:
     container_name: app
-    image: employee:latest
+    image: employees:latest
     environment:
       MONGO_URI: mongodb://mongodb:27017/employees
 

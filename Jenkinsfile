@@ -86,6 +86,8 @@ pipeline {
                     if [ "$NEXTVERSION" = "" ]; then
                         NEXTVERSION="1.0.1"
                     fi
+
+                    git push $NEXTVERSION
                 """
             }
         }

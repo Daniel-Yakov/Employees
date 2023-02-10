@@ -95,7 +95,7 @@ pipeline {
                 script {
                     def VERSION = sh (
                         script: 'cat v.txt',
-                        returnStdout: true
+                        returnStdout: true 
                     ).trim() 
 
                     sh "docker tag employees:latest employees:${VERSION}"

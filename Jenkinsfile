@@ -84,10 +84,10 @@ pipeline {
                     NEXTVERSION=\$(git describe --tags | cut -d '-' -f1 | awk -F. -v OFS=. '{\$NF += 1 ; print}')
                     
                     if [ "\$NEXTVERSION" = "" ]; then
-                        NEXTVERSION="1.0.1"
+                        NEXTVERSION="1.0.0"
                     fi
 
-                    git checkout $GIT_BRANCH
+                    git checkout $GIT_BRANCH 
                     git tag \$NEXTVERSION
                     git push origin \$NEXTVERSION
                 """

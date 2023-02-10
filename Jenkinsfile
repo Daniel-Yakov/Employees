@@ -93,7 +93,7 @@ pipeline {
         stage('publish'){
             steps {
                 script {
-                    def VERSION = sh (
+                    def VERSION = sh ( 
                         script: 'cat v.txt',
                         returnStdout: true 
                     ).trim() 

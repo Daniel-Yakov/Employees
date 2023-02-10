@@ -48,6 +48,7 @@ pipeline {
 
                     docker cp ./nginx/nginx.conf nginx:/etc/nginx/conf.d/default.conf
                     docker exec nginx nginx -s reload
+                    sleep 1
                     
                     bash testing/e2e.sh nginx
                 """

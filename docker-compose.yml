@@ -3,6 +3,8 @@ version: '3.0'
 services:
   nginx:
     container_name: nginx 
+    ports:
+      - 80:80
     image: nginx:1.23.3-alpine-slim
 
   app:

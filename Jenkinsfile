@@ -59,7 +59,6 @@ pipeline {
                 sh """
                     docker compose up -d 
                     sleep 2
-                    exit 1
 
                     docker cp ./nginx/nginx.conf nginx:/etc/nginx/conf.d/default.conf
                     docker exec nginx nginx -s reload

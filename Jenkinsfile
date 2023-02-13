@@ -22,7 +22,6 @@ pipeline {
     stages {
         stage('checkout'){
             steps{
-                deleteDir()
                 checkout scm
             }
         }
@@ -117,9 +116,39 @@ pipeline {
                 }
             }
         }
+
+        stage('deploy'){
+            when { branch "main" }
+            
+            steps {
+                script {
+                    def VERSION = sh ( 
+                        script: 'cat v.txt',
+                        returnStdout: true 
+                    ).trim() 
+
+                    sh """ 
+                        eval `ssh-agent -s`
+                        ssh-add ~/.ssh/update_repo
+                        
+                        git clone git@github.com:Daniel-Yakov/employees-gitops-config.git
+                        cd employees-gitops-config
+
+                        sed -i "s/tag: .*/tag: ${VERSION}/" ./app/values.yaml
+
+                        git add ./app/values.yaml
+                        git commit -m "jenkins update image to version ${VERSION}"
+                        git push origin main
+                    """
+                }
+            }
+        }
     }
 
     post {
+        always {
+            deleteDir()
+        }
         success {
             setBuildStatus("Build complete", "done", "success");
         }

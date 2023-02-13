@@ -3,6 +3,8 @@ const express = require('express')
 const cors = require('cors');
 const Employee = require('./models/employee');
 const { connectMongo } = require('./models/connection')
+var expressWinston = require('express-winston');
+var { transports, format } = require('winston'); // for transports.Console
 
 const app = express()
 
@@ -10,6 +12,18 @@ app.use(express.urlencoded({ extended: true })); // For parsing application/x-ww
 app.use(express.json()); // For parsing application/json
 
 app.use(cors()) // allow access from jquey on client side
+
+// Config logs
+app.use(expressWinston.logger({
+    transports: [
+      new transports.Console()
+    ],
+    format: format.combine(
+      format.timestamp(),
+      format.json()
+    ),
+    statusLevels: true
+  }));
 
 
 // Connect to mongoDB

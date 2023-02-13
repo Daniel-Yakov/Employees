@@ -22,7 +22,6 @@ pipeline {
     stages {
         stage('checkout'){
             steps{
-                deleteDir()
                 checkout scm
             }
         }
@@ -147,6 +146,9 @@ pipeline {
     }
 
     post {
+        always {
+            deleteDir()
+        }
         success {
             setBuildStatus("Build complete", "done", "success");
         }

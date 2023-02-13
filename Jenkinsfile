@@ -77,7 +77,7 @@ pipeline {
         }
 
         stage('tag'){
-            when { branch "main" }
+            // when { branch "main" }
 
             steps {
                 sh """                     
@@ -93,7 +93,7 @@ pipeline {
         }
 
         stage('publish'){
-            when { branch "main" }
+            // when { branch "main" }
             
             steps {
                 script {
@@ -113,6 +113,30 @@ pipeline {
                         git checkout $GIT_BRANCH
                         git tag $VERSION
                         git push origin $VERSION
+                    """
+                }
+            }
+        }
+
+        stage('deploy'){
+            // when { branch "main" }
+            
+            steps {
+                script {
+                    def VERSION = sh ( 
+                        script: 'cat v.txt',
+                        returnStdout: true 
+                    ).trim() 
+
+                    sh """ 
+                        git clone git@github.com:Daniel-Yakov/employees-gitops-config.git
+                        cd employees-gitops-config
+
+                        sed -i "s/tag: .*/tag: ${VERSION}/" ./app/values.yaml
+
+                        git add ./app/values.yaml
+                        git commit -m "jenkins update image to version ${VERSION}"
+                        git push origin main
                     """
                 }
             }

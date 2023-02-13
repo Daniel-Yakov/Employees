@@ -76,7 +76,7 @@ pipeline {
         }
 
         stage('tag'){
-            when { branch "main" }
+            // when { branch "main" }
 
             steps {
                 sh """                     
@@ -92,7 +92,7 @@ pipeline {
         }
 
         stage('publish'){
-            when { branch "main" }
+            // when { branch "main" }
             
             steps {
                 script {
@@ -118,13 +118,13 @@ pipeline {
         }
 
         stage('deploy'){
-            when { branch "main" }
+            // when { branch "main" }
             
             steps {
                 script {
                     def VERSION = sh ( 
                         script: 'cat v.txt',
-                        returnStdout: true 
+                        returnStdout: true  
                     ).trim() 
 
                     sh """ 

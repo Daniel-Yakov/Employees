@@ -138,7 +138,7 @@ pipeline {
 
                         git add ./app/values.yaml
                         git commit -m "jenkins update image to version ${VERSION}"
-                        git push origin main
+                        git push origin main 
                     """
                 }
             }

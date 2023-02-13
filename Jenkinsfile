@@ -129,6 +129,9 @@ pipeline {
                     ).trim() 
 
                     sh """ 
+                        eval `ssh-agent -s`
+                        ssh-add ~/.ssh/update_repo
+                        
                         git clone git@github.com:Daniel-Yakov/employees-gitops-config.git
                         cd employees-gitops-config
 

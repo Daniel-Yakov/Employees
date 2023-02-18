@@ -15,6 +15,12 @@ void setBuildStatus(String message, String context, String state) {
 pipeline {
     options {
         timestamps()
+        timeout(time:4, unit:'MINUTES')
+        buildDiscarder(logRotator(
+            numToKeepStr: '4',
+            daysToKeepStr: '7',
+            artifactNumToKeepStr: '30'
+        ))
     }
 
     agent any
@@ -76,7 +82,7 @@ pipeline {
         }
 
         stage('tag'){
-            // when { branch "main" }
+            when { branch "main" }
 
             steps {
                 sh """                     
@@ -92,7 +98,7 @@ pipeline {
         }
 
         stage('publish'){
-            // when { branch "main" }
+            when { branch "main" }
             
             steps {
                 script {
@@ -118,7 +124,7 @@ pipeline {
         }
 
         stage('deploy'){
-            // when { branch "main" }
+            when { branch "main" }
             
             steps {
                 script {

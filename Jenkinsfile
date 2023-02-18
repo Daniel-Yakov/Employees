@@ -156,11 +156,13 @@ pipeline {
             deleteDir()
         }
         success {
-            setBuildStatus("Build complete", "done", "success");
+            setBuildStatus("Build complete", "done", "success")
+            slackSend(color: 'good', message: "Success on branch ${env.GIT_BRANCH}. For more information: ${env.BUILD_URL}")
         }
 
         failure {
-            setBuildStatus("Build failed", "broke", "failure");
+            setBuildStatus("Build failed", "broke", "failure")
+            slackSend(color: 'danger', message: "Failed on branch ${env.GIT_BRANCH}. For more information: ${env.BUILD_URL}")
         }
     }
 }

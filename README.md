@@ -10,4 +10,4 @@ To run the CI pipeline, you will need a Jenkins instance. The Jenkins MBP should
 - CloudBees AWS Credentials Plugin
 - Slack Notification Plugin
 
-You should also install any additional plugins suggested during the installation process. Of course, you will need to configure these plugins (such as the Slack app and credentials) as necessary.
+You should also install any additional plugins suggested during the installation process. Additionally, you will need to configure the IP address of the Jenkins instance within the Jenkins "configure system" settings. Finally, you will also need to configure any necessary plugins, such as the Slack app and credentials, as necessary.

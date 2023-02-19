@@ -1,6 +1,8 @@
 # Employees DevOps portfolio
 ## Source code repository
-This repository contains the source code of a simple RESTful application. It includes a Dockerfile to dockerize the app, a docker-compose file that the tests run against in the CI pipeline, and a Jenkinsfile that runs in the MBP Jenkins job. The complete architecture is depicted in architecture.jpg.
+This repository contains the source code of a simple RESTful application. It includes a Dockerfile to dockerize the app, a docker-compose file that the tests run against in the CI pipeline, and a Jenkinsfile that runs in the MBP Jenkins job. 
+
+![Project architecture image](architecture.jpg)
 
 ## Requirments
 1. To run the CI pipeline, you will need a Jenkins instance. The Jenkins MBP should make use of the following plugins:

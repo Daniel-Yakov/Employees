@@ -1,8 +1,8 @@
-const host = "localhost"
+const host = "danielemployees.cloud"
 
 // Show all employees
 function loadPage(){
-    $.get(`http://${host}/employees`,function(employees){
+    $.get(`https://${host}/employees`,function(employees){
         for(let employee of employees){
             $("#main").append(
                 `<div id=${employee._id} class="card mx-auto mb-2 col-md-4" style="width: 18rem;"> 

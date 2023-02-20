@@ -65,7 +65,7 @@ pipeline {
                     docker compose up -d 
                     sleep 2
 
-                    docker cp ./nginx/nginx.conf nginx:/etc/nginx/conf.d/default.conf
+                    docker cp ./nginx/nginx.conf nginx:/etc/nginx/conf.d/default.conf 
                     docker exec nginx nginx -s reload
                     sleep 1
                     

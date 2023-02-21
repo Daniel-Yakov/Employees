@@ -75,7 +75,7 @@ pipeline {
             post {
                 always {
                     sh """
-                        docker compose down -v
+                        docker compose down -v 
                     """
                 }
             }

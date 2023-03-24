@@ -18,5 +18,5 @@ services:
 networks:
   # same as jenkins' network 
   default:
-    name: portfolio_default
+    name: jenkins_default
     external: true

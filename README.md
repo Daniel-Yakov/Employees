@@ -5,13 +5,18 @@ This repository contains the source code of a simple RESTful application. It inc
 ![Project architecture image](architecture.jpg)
 
 ## Requirments
-1. To run the CI pipeline, you will need a Jenkins instance. The Jenkins MBP should make use of the following plugins:
+#### Jenkins
+1. Setup Jenkins as a container in an EC2 instance with Docker, Docker Compose, and AWS CLI installed. Refer to this [GitHub repository](https://github.com/Daniel-Yakov/jenkins-setup) for instructions.
+2. Install the following Jenkins plugins: `Docker Pipeline`, `Multibranch Scan Webhook Trigger` and `Slack Notification Plugin`.
+3. Configure the necessary SSH keys.
+4. Add the credential `github` of type "Secret text" to Jenkins. This should contain the generated token from GitHub personal access token (classic) with the repo scope checked.
+5. Add the credential `slack-token` of type "Secret text" to Jenkins and configure the `Slack Notification Plugin` in the Configure System (requires a Slack app).
+6. In the Jenkinsfile, ensure that the `--network` specified in the 'unit_test' stage matches the network of the Jenkins container.
 
-- Amazon ECR plugin
-- Authentication Tokens API Plugin
-- CloudBees AWS Credentials Plugin
-- Slack Notification Plugin
+#### Amazon Elastic Container Registry (ECR)
+1. Create an ECR private repository.
+2. Ensure that the correct repository name is specified in the Jenkinsfile under the 'publish' stage.
+3. Attach an EC2 role with the following permissions: `ecr:CompleteLayerUpload`, `ecr:UploadLayerPart`, `ecr:InitiateLayerUpload`, `ecr:BatchCheckLayerAvailability`, `ecr:PutImage` and `ecr:GetAuthorizationToken`
 
-You should also install any additional plugins suggested during the installation process. Additionally, you will need to configure the IP address of the Jenkins instance within the Jenkins "configure system" settings. Finally, you will also need to configure any necessary plugins, such as the Slack app and credentials, as necessary.
-
-2. ECR repository: make changes in Jenkins file as necessary to match your repository.
+#### Docker Compose
+1. In the Docker Compose file, ensure that the networks section specifies the same network as the Jenkins container.

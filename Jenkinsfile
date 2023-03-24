@@ -107,7 +107,10 @@ pipeline {
                         returnStdout: true 
                     ).trim() 
 
-                    sh "docker tag employees:latest employees:${VERSION}"
+                    sh """
+                        docker tag employees:latest employees:${VERSION}
+                        aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 346965469639.dkr.ecr.eu-central-1.amazonaws.com
+                    """
                     
                     // push the image with the correct tag to ECR
                     docker.withRegistry("https://346965469639.dkr.ecr.eu-central-1.amazonaws.com") {

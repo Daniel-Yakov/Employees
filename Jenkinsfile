@@ -110,7 +110,7 @@ pipeline {
                     sh "docker tag employees:latest employees:${VERSION}"
                     
                     // push the image with the correct tag to ECR
-                    docker.withRegistry("https://644435390668.dkr.ecr.eu-west-3.amazonaws.com", "ecr:eu-west-3:publish-ecr") {
+                    docker.withRegistry("https://346965469639.dkr.ecr.eu-central-1.amazonaws.com") {
                         docker.image("employees:${VERSION}").push()
                     }
 

@@ -44,7 +44,7 @@ pipeline {
         stage('unit_test'){
             steps{
                 sh """
-                    docker run -d --name test --network portfolio_default employees
+                    docker run -d --name test --network jenkins_default employees
                     sleep 2
                     bash testing/unit_test.sh
                 """

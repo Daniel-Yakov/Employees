@@ -22,6 +22,4 @@ This repository contains the source code of a simple RESTful application. It inc
 1. In the Docker Compose file, ensure that the networks section specifies the same network as the Jenkins container.
 
 ## Additional Information
-It's worth noting that this configuration repository is intended to be used in conjunction with the source code repository and infrastructure repository to provide a complete DevOps solution for the application.
-[Infrastructure GitHub Repository](https://github.com/Daniel-Yakov/portfolio-infra)
-[GitOps Config GitHub Repository](https://github.com/Daniel-Yakov/employees-gitops-config)
+It's worth noting that this configuration repository is intended to be used in conjunction with the [employees-gitops-config repository](https://github.com/Daniel-Yakov/employees-gitops-config) and [infrastructure repository](https://github.com/Daniel-Yakov/portfolio-infra) to provide a complete DevOps solution for the application.
